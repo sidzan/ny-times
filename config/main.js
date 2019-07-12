@@ -27,17 +27,13 @@ const config = {
         {name: 'viewport', content: 'width=device-width, initial-scale=1'},
         {name: 'description', content: 'React Redux Typescript'},
       ],
-      title: 'Bchu Runway'
+      title: 'Sijan'
     }
   },
   env: process.env.NODE_ENV || 'development',
   host: process.env.HOST || 'localhost',
-  port: process.env.PORT || 9500,
+  port: process.env.PORT || 3300,
   ssr: true,
-  sentry: {
-    dsn: '', // your sentry dsn here
-    options: {}
-  }
 };
 
 module.exports = config;

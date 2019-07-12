@@ -1,7 +1,9 @@
 import {applyMiddleware, compose, createStore, Middleware, Store} from "redux";
 import {createLogger} from "redux-logger";
+import {router5Middleware} from "redux-router5";
 import createSagaMiddleware, {END, Task} from "redux-saga";
-import {config as appConfig} from "../../config";
+import {Router} from "router5";
+import {config as appConfig} from "../../../config";
 import {IStore} from "./IStore";
 import rootReducer from "./rootReducer";
 
@@ -10,9 +12,10 @@ interface IExtendedStore extends Store<Partial<IStore>> {
     close: () => void;
 }
 
-export function configureStore(initialState?: Partial<IStore>): IExtendedStore {
+export function configureStore(router: Router, initialState?: Partial<IStore>): IExtendedStore {
     const sagaMiddleware = createSagaMiddleware();
     const middlewares: Middleware[] = [
+        router5Middleware(router),
         sagaMiddleware
     ];
 

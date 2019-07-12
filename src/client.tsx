@@ -5,7 +5,7 @@ import * as ReactDOM from "react-dom";
 import {Provider} from "react-redux";
 import {RouterProvider} from "react-router5";
 import {setStylesTarget} from "typestyle";
-import {config as appConfig} from "./config";
+import {config as appConfig} from "../config";
 import {App} from "./app/containers/App";
 import {configureStore} from "./app/redux/configureStore";
 import {configureRouter} from "./app/routes/configureRouter";
@@ -22,6 +22,7 @@ const renderOrHydrate = appConfig.ssr ? ReactDOM.hydrate : ReactDOM.render;
 const router = configureRouter();
 const store = configureStore(router, window.__INITIAL_STATE__);
 let sagaTask = store.runSaga(rootSaga);
+
 router.start();
 renderOrHydrate(
     <ReactHotLoader>

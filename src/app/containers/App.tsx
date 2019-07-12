@@ -20,7 +20,8 @@ setupCss("en"); // Set by default
 const classNames = stylesheet({
                                   container: {
                                       margin: 0,
-                                      padding: 0
+                                      padding: 0,
+                                      textAlign: "center"
                                   }
                               });
 

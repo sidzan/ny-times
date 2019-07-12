@@ -4,6 +4,7 @@
   "private": true,
   "dependencies": {
     "@babel/core": "7.4.3",
+    "@crazyfactory/tinka": "^1.8.2",
     "@svgr/webpack": "4.1.0",
     "@types/jest": "24.0.15",
     "@types/node": "12.6.2",

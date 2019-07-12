@@ -1,7 +1,7 @@
 import {applyMiddleware, compose, createStore, Middleware, Store} from "redux";
 import {createLogger} from "redux-logger";
 import createSagaMiddleware, {END, Task} from "redux-saga";
-import {config as appConfig} from "../../../config";
+import {config as appConfig} from "../../config";
 import {IStore} from "./IStore";
 import rootReducer from "./rootReducer";
 

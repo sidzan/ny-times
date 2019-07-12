@@ -1,4 +1,4 @@
-import {Client, IFetchHeaders, IFetchRequest, IncludeCredentialsMiddleware, Service} from "@crazyfactory/tinka";
+import {Client, IFetchHeaders, IFetchRequest, IncludeCredentialsMiddleware, Service,} from "@crazyfactory/tinka";
 import {ContentTypeMiddleware} from "./middlewares/ContentTypeMiddleware";
 import {WrapMiddleware} from "./middlewares/WrapMiddleware";
 

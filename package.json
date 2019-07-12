@@ -7,16 +7,30 @@
     "@types/node": "12.6.2",
     "@types/react": "16.8.23",
     "@types/react-dom": "16.8.4",
+    "es6-promise": "^4.2.8",
+    "isomorphic-fetch": "^2.2.1",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
+    "react-redux": "^7.1.0",
+    "react-router5": "^6.5.3",
     "react-scripts": "3.0.1",
-    "typescript": "3.5.3"
+    "redux": "^4.0.4",
+    "redux-logger": "^3.0.6",
+    "redux-router5": "^7.0.2",
+    "redux-saga": "^1.0.5",
+    "reselect": "^4.0.0",
+    "router5": "^6.6.3",
+    "router5-plugin-browser": "^7.0.2",
+    "typescript": "3.5.3",
+    "typestyle": "^2.0.3"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "lint": "tslint -t stylish --project tsconfig.json \"src/**/**.ts*\" -e \"src/**/**.snap\"",
+    "lint:fix": "npm run lint -s -- --fix"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -32,5 +46,14 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@crazyfactory/tslint-rules": "^1.6.1",
+    "react-hot-loader": "^4.12.6",
+    "tslint": "^5.18.0",
+    "tslint-loader": "^3.5.4",
+    "tslint-microsoft-contrib": "^6.2.0",
+    "tslint-react": "^4.0.0",
+    "typesafe-actions": "^4.4.2"
   }
 }

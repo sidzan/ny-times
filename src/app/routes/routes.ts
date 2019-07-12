@@ -4,7 +4,9 @@ interface IRoute {
 }
 
 const routes: IRoute[] = [
-    {name: "home", path: "/"}
+    {name: "home", path: "/"},
+    {name: "counter", path: "/counter"}
+
 ];
 
 export default routes;

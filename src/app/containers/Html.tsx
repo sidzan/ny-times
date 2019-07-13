@@ -38,7 +38,7 @@ export class Html extends React.Component<IHtmlProps> {
         {head.link.toComponent()}
         {head.script.toComponent()}
         {renderStyles}
-        <link rel="shortcut icon" href="/favicon.ico"/>
+        <link rel="shortcut icon" href="/favicon.png"/>
       </head>
       <body>
         {/* tslint:disable-next-line:react-no-dangerous-html */}

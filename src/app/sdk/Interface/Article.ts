@@ -1,126 +1,131 @@
 export interface IArticles {
-    status:    string;
+    status: string;
     copyright: string;
-    response:  IResponse;
+    response: IResponse;
 }
 
 export interface IResponse {
-    docs: IDoc[];
+    docs: IDocRestrutrued[];
     meta?: IMeta;
 }
 
 export interface IDoc {
-    web_url:          string;
-    snippet:          string;
-    lead_paragraph:   string;
-    abstract:         string;
-    blog:             IBlog;
-    source:           Source;
-    multimedia:       IMultimedia[];
-    headline:         IHeadline;
-    keywords:         IKeyword[];
-    pub_date:         string;
-    document_type:    DocumentType;
-    news_desk:        string;
-    section_name:     string;
-    byline:           IByline;
+    web_url: string;
+    snippet: string;
+    lead_paragraph: string;
+    abstract: string;
+    blog: IBlog;
+    source: Source;
+    multimedia: IMultimedia[];
+    headline: IHeadline;
+    keywords: IKeyword[];
+    pub_date: string;
+    document_type: DocumentType;
+    news_desk: string;
+    section_name: string;
+    byline: IByline;
     type_of_material: string;
-    _id:              string;
-    word_count:       number;
-    uri:              string;
-    print_page?:      string;
+    _id: string;
+    word_count: number;
+    uri: string;
+    print_page?: string;
     subsection_name?: string;
+}
+
+export interface IDocRestrutrued extends IDoc {
+    thumbnail: string;
+    image: string;
 }
 
 export interface IBlog {
 }
 
 export interface IByline {
-    original:     null | string;
-    person:       IPerson[];
+    original: null | string;
+    person: IPerson[];
     organization: null | string;
 }
 
 export interface IPerson {
-    firstname:    string;
-    middlename:   null | string;
-    lastname:     null | string;
-    qualifier:    null;
-    title:        null;
-    role:         string;
+    firstname: string;
+    middlename: null | string;
+    lastname: null | string;
+    qualifier: null;
+    title: null;
+    role: string;
     organization: string;
-    rank:         number;
+    rank: number;
 }
 
 export enum DocumentType {
     Article = "article",
-    Multimedia = "multimedia",
+    Multimedia = "multimedia"
 }
 
 export interface IHeadline {
-    main:           string;
-    kicker:         null | string;
+    main: string;
+    kicker: null | string;
     content_kicker: null;
     print_headline: null | string;
-    name:           null;
-    seo:            null;
-    sub:            null;
+    name: null;
+    seo: null;
+    sub: null;
 }
 
 export interface IKeyword {
-    name:  Name;
+    name: Name;
     value: string;
-    rank:  number;
+    rank: number;
     major: Major;
 }
 
 export enum Major {
-    N = "N",
+    N = "N"
 }
 
 export enum Name {
     Glocations = "glocations",
     Organizations = "organizations",
     Persons = "persons",
-    Subject = "subject",
+    Subject = "subject"
 }
 
 export interface IMultimedia {
-    rank:      number;
-    subtype:   string;
-    caption:   null;
-    credit:    null;
-    type:      Type;
-    url:       string;
-    height:    number;
-    width:     number;
-    legacy:    ILegacy;
-    subType:   string;
+    rank: number;
+    subtype: string;
+    caption: null;
+    credit: null;
+    type: Type;
+    url: string;
+    height: number;
+    width: number;
+    legacy: ILegacy;
+    subType: string;
     crop_name: string;
 }
 
 export interface ILegacy {
-    widewidth?:       number;
-    wideheight?:      number;
-    wide?:            string;
-    thumbnail?:       string;
-    thumbnailwidth?:  number;
+    widewidth?: number;
+    wideheight?: number;
+    wide?: string;
+    thumbnail?: string;
+    thumbnailwidth?: number;
     thumbnailheight?: number;
-    xlarge?:          string;
-    xlargewidth?:     number;
-    xlargeheight?:    number;
+    xlarge?: string;
+    xlargewidth?: number;
+    xlargeheight?: number;
 }
 
 export enum Type {
-    Image = "image",
+    Image = "image"
 }
 
 export enum Source {
-    TheNewYorkTimes = "The New York Times",
+    TheNewYorkTimes = "The New York Times"
 }
 
 export interface IMeta {
-    hits:   number;
+    hits: number;
     offset: number;
-    time:   number;
+    time: number;
 }

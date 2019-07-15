@@ -5,12 +5,16 @@ import * as articlesActionCreators from "./articlesActionCretors";
 
 export interface IArticlesState extends IBaseState {
     data?: IResponse;
+    sort: "newest" | "oldest";
+    searchQuery: string | null;
 }
 
 const initialState: IArticlesState = {
     data: {
         docs: []
     },
+    searchQuery: "",
+    sort: "newest",
     error: "",
     loaded: false,
     pending: false
@@ -24,7 +28,6 @@ export function articlesReducer(
         case getType(articlesActionCreators.getArticles.setPending):
             return {
                 ...state,
-                data: null,
                 pending: true
             };
         case getType(articlesActionCreators.getArticles.setFulfilled):
@@ -41,6 +44,22 @@ export function articlesReducer(
                 error: action.message,
                 loaded: true,
                 pending: false
+            };
+        case "ARTICLES/SORT":
+            return {
+                ...state,
+                sort: action.payload
+            };
+        case "ARTICLES/SEARCH":
+            return {
+                ...state,
+                searchQuery: action.payload
+            };
+        case "ARTICLES/CLEAR_SEARCH":
+            return {
+                ...state,
+                sort: "newest",
+                searchQuery: ""
             };
         default:
             return state;

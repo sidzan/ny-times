@@ -38,7 +38,6 @@ app.use("/public", express.static(path.join(__dirname, "public")));
 
 app.get("*", (req: express.Request, res: express.Response) => {
     // tslint:disable-next-line:no-console
-    console.log("URL>>>>>", req.url);
     if (!appConfig.ssr) {
         res.sendFile(path.resolve("./build/index.html"), {}, (error) => {
             if (error) {

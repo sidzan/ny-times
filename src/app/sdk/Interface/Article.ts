@@ -33,6 +33,7 @@ export interface IDoc {
 }
 
 export interface IDocRestrutrued extends IDoc {
+    hasImage: boolean;
     thumbnail: string;
     image: string;
 }

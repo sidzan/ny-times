@@ -1,34 +1,45 @@
-import * as React from "react";
-import { connect } from "react-redux";
-import { Dispatch } from "redux";
-import { Button } from "../components/Button";
-import { IStore } from "../redux/IStore";
-import {
-    getArticles as getArticlesActionCreator, IRequestOptions
-} from "../redux/modules/Articles/articlesActionCretors";
-import { IDoc, IResponse, IDocRestrutrued } from "../sdk/Interface/Article";
-import { Card } from "../components/Card";
 import * as moment from "moment";
-import { style, media } from "typestyle";
-import { Width } from "../constants/Width"
+import * as React from "react";
+import {connect} from "react-redux";
+import {Dispatch} from "redux";
+import {media, style} from "typestyle";
+import {Card} from "../components/Card";
+import {Loading} from "../components/Loading";
+import {Width} from "../constants/Width";
+import {IStore} from "../redux/IStore";
+import {getArticles as getArticlesActionCreator} from "../redux/modules/Articles/articlesActionCretors";
+import {navigate} from "../routes/routes";
+import {IDocRestrutrued} from "../sdk/Interface/Article";
+import {curateArticles} from "../selectors/ArticlesSelectors";
+
+interface IData {
+    data: IDocRestrutrued[];
+    length: number;
+}
+
 interface IStateToProps {
-    data: IResponse;
+    newsWithImage: IData;
+    newsWithoutImage: IData;
     loaded: boolean;
     pending: boolean;
     error: string;
 }
 
 interface IDispatchToProps {
-    getArticles: (options?: IRequestOptions) => void;
+    getArticles: () => void;
+    toArticleDetail: (id: string) => void;
 }
 
 interface IProps extends IStateToProps, IDispatchToProps {
 }
-const ArticlesContainer = style({
-    display: "grid",
-    gridGap: 25,
-    gridTemplateColumns: "auto auto auto auto"
-},
+
+const ArticlesContainer = style(
+    {
+        display: "grid",
+        gridGap: 25,
+        gridTemplateColumns: "repeat(5, 1fr)",
+        paddingBottom: 25
+    },
     media(
         {
             maxWidth: Width.TABLET,
@@ -49,64 +60,75 @@ const ArticlesContainer = style({
             gridTemplateColumns: "auto auto"
         })
 );
+
 class Articles extends React.Component<IProps> {
     constructor(props: IStateToProps & IDispatchToProps) {
         super(props);
         if (!this.props.loaded) {
             this.props.getArticles();
         }
+        this.renderDocs = this.renderDocs.bind(this);
+        this.navigate = this.navigate.bind(this);
         this.renderArticles = this.renderArticles.bind(this);
     }
 
     public render(): JSX.Element {
-        const { error, pending } = this.props;
+        const {error, pending} = this.props;
         if (pending) {
-            return <div>Loading</div>;
+            return <Loading/>;
         } else {
             return error ? <div>{error}</div> : this.renderArticles();
         }
     }
 
     private renderArticles(): JSX.Element {
-        const { data } = this.props;
-        const { docs } = data;
+        const {newsWithoutImage, newsWithImage} = this.props;
         return (
-            <div className={ArticlesContainer}>
-                {docs.map(this.renderDocs)}
-                <Button onClick={this.handleSort("newest")}>Newest First</Button>
-                <Button onClick={this.handleSort("oldest")}>Oldest First</Button>
-            </div>
+            <React.Fragment>
+                <div className={ArticlesContainer}>
+                    {newsWithImage.data.map(this.renderDocs)}
+                    {newsWithoutImage.data.map(this.renderDocs)}
+                </div>
+            </React.Fragment>
         );
     }
 
-    private handleSort(sort: "newest" | "oldest"): () => void {
-        const { getArticles } = this.props;
-        return () => getArticles({ sort });
-    }
+    private renderDocs(doc: IDocRestrutrued): JSX.Element {
+        const {_id, headline: {name, main}, pub_date, lead_paragraph, thumbnail, snippet, type_of_material, hasImage} = doc;
+        const day = moment(pub_date).date().toString();
+        const month = moment(pub_date).format("MMM");
+        const year = moment(pub_date).format("YYYY");
 
-    private renderDocs(doc: IDocRestrutrued, index): JSX.Element {
-        const { _id, abstract, document_type, headline: { name }, pub_date, lead_paragraph, thumbnail } = doc;
-        const day = moment(pub_date).date().toString()
-        const month = moment(pub_date).format("MMM")
         return (
             <Card
+                key={_id}
+                onClick={this.navigate(_id)}
                 day={day}
                 month={month}
-                category={document_type}
+                year={year}
+                category={type_of_material}
                 description={lead_paragraph}
-                key={_id}
                 img={thumbnail}
-                subTitle={name}
-                title={name}
+                subTitle={name || snippet}
+                title={name || main}
+                hasImage={hasImage}
             />
-
         );
+    }
+
+    private navigate(id): () => void {
+        const {toArticleDetail} = this.props;
+        return () => {
+            toArticleDetail(id);
+        };
     }
 }
 
 function mapStateToProps(state: Pick<IStore, "articles">): IStateToProps {
+    console.log(curateArticles(state));
     return {
-        data: state.articles.data,
+        newsWithImage: curateArticles(state).newsWithImage,
+        newsWithoutImage: curateArticles(state).newsWithoutImage,
         loaded: state.articles.loaded,
         pending: state.articles.pending,
         error: state.articles.error
@@ -115,10 +137,11 @@ function mapStateToProps(state: Pick<IStore, "articles">): IStateToProps {
 
 function mapDispatchToProps(dispatch: Dispatch): IDispatchToProps {
     return {
-        getArticles: (options: IRequestOptions) => dispatch(getArticlesActionCreator.invoke(options))
+        getArticles: () => dispatch(getArticlesActionCreator.invoke(null)),
+        toArticleDetail: (id) => dispatch(navigate.toArticleDetail(id))
     };
 }
 
 const connected = connect(mapStateToProps, mapDispatchToProps)(Articles);
 
-export { connected as Articles };
+export {connected as Articles};

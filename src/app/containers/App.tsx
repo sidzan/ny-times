@@ -7,9 +7,13 @@ import {Button} from "../components/Button";
 import {Link} from "../components/Link";
 import {Color} from "../constants/Color";
 import {setupCss} from "../helpers/setupCss";
+import {Details} from "../pages/Details";
 import {HomePage} from "../pages/HomePage";
 import {IStore} from "../redux/IStore";
 import {CounterPage} from "./CounterPage";
+import Helmet from "react-helmet";
+
+import {config as appConfig} from "../../../config";
 
 interface IStateToProps {
     route: IRouteState;
@@ -28,7 +32,8 @@ const classNames = stylesheet({
 class App extends React.Component<IStateToProps> {
     private components: { [key: string]: React.ComponentClass } = {
         home: HomePage,
-        counter: CounterPage
+        counter: CounterPage,
+        details: Details
     };
 
     public render(): JSX.Element {
@@ -36,9 +41,7 @@ class App extends React.Component<IStateToProps> {
         const segment = route ? route.name.split(".")[0] : undefined;
         return (
             <section className={classNames.container}>
-                <header className="App-header">
-                    Sijan's Boilerplate
-                </header>
+                <Helmet {...appConfig.app.head}/>
                 <div style={{backgroundColor: Color.PRIMARY}}>
                     <Button color="inherit"><Link name="home">Home</Link></Button>
                     <Button color="inherit"><Link name="counter">Details</Link></Button>

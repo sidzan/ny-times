@@ -94,6 +94,7 @@ const config = {
 utils.copySyncIfDoesntExist('./config/main.js', './config/main.local.js');
 utils.createIfDoesntExist('./build');
 utils.createIfDoesntExist('./build/public');
+utils.copySync('./src/favicon.png', './build/public/favicon.png', true);
 utils.copySync('./src/index.html', './build/index.html');
 
 module.exports = config;

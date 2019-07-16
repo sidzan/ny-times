@@ -1,6 +1,7 @@
-import {Client, IFetchHeaders, IFetchRequest, IncludeCredentialsMiddleware, Service,} from "@crazyfactory/tinka";
+import {Client, IFetchHeaders, IFetchRequest, Service} from "@crazyfactory/tinka";
 import {ContentTypeMiddleware} from "./middlewares/ContentTypeMiddleware";
 import {WrapMiddleware} from "./middlewares/WrapMiddleware";
+import {Articles} from "./modules/Articles";
 
 // tslint:disable-next-line
 export class Api extends Service {
@@ -23,13 +24,16 @@ export class Api extends Service {
 
     public static getEndpoint(): any {
         // tslint:disable-next-line
-        return "https://api.nytimes.com"; //tslint:disable-line
+        return "https://api.nytimes.com/svc/search/v2/articlesearch.json?api-key=d7nQQhYX5fsndjScSGB4ZwFnVxzSLOeA"; //tslint:disable-line
+    }
+
+    public get articles(): Articles {
+        return new Articles(this.client);
     }
 
     private static setupMiddlewares(client: Client): Client {
         client.addMiddleware(new WrapMiddleware());
         client.addMiddleware(new ContentTypeMiddleware());
-        client.addMiddleware(new IncludeCredentialsMiddleware("omit"));
         return client;
     }
 }

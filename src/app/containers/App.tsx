@@ -1,15 +1,16 @@
 import * as React from "react";
+import Helmet from "react-helmet";
 import {connect} from "react-redux";
 import {createRouteNodeSelector, RouterState} from "redux-router5";
 import {State as IRouteState} from "router5/create-router";
 import {stylesheet} from "typestyle";
-import {Button} from "../components/Button";
-import {Link} from "../components/Link";
-import {Color} from "../constants/Color";
+import {config as appConfig} from "../../../config";
 import {setupCss} from "../helpers/setupCss";
+import {Details} from "../pages/Details";
 import {HomePage} from "../pages/HomePage";
 import {IStore} from "../redux/IStore";
 import {CounterPage} from "./CounterPage";
+import {Navbar} from "./Navbar";
 
 interface IStateToProps {
     route: IRouteState;
@@ -28,7 +29,8 @@ const classNames = stylesheet({
 class App extends React.Component<IStateToProps> {
     private components: { [key: string]: React.ComponentClass } = {
         home: HomePage,
-        counter: CounterPage
+        counter: CounterPage,
+        details: Details
     };
 
     public render(): JSX.Element {
@@ -36,17 +38,12 @@ class App extends React.Component<IStateToProps> {
         const segment = route ? route.name.split(".")[0] : undefined;
         return (
             <section className={classNames.container}>
-                <header className="App-header">
-                    Sijan's Boilerplate
-                </header>
-                <div style={{backgroundColor: Color.PRIMARY}}>
-                    <Button color="inherit"><Link name="home">Home</Link></Button>
-                    <Button color="inherit"><Link name="counter">Details</Link></Button>
-                </div>
+                <Helmet {...appConfig.app.head}/>
+                <Navbar/>
                 {segment && this.components[segment] ? React.createElement(this.components[segment]) : <div>404</div>}
             </section>
         );
-    };
+    }
 }
 
 const mapStateToProps = (state: Pick<IStore, "router">): IStateToProps & Partial<RouterState> => ({
@@ -56,4 +53,3 @@ const mapStateToProps = (state: Pick<IStore, "router">): IStateToProps & Partial
 const connected = connect(mapStateToProps)(App);
 
 export {classNames, connected as App, mapStateToProps};
-

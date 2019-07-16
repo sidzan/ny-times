@@ -20,8 +20,8 @@ const withoutImages = ((state: Pick<IStore, "articles">) => state.articles.data.
 export const curateArticles = createSelector(
     [withImages, withoutImages],
     (a, b) => {
-        let newsWithImage = {data: a, length: a.length};
-        let newsWithoutImage = {data: b, length: b.length};
+        const newsWithImage = {data: a, length: a.length};
+        const newsWithoutImage = {data: b, length: b.length};
         return {newsWithImage, newsWithoutImage};
     }
 );

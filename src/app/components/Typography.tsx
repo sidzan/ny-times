@@ -1,5 +1,5 @@
 import * as React from "react";
-import {classes, stylesheet, style, media} from "typestyle";
+import {classes, media, style, stylesheet} from "typestyle";
 import {Width} from "../constants/Width";
 
 const TitleClass = style(

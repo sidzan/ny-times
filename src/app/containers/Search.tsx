@@ -26,19 +26,19 @@ interface IDispatchToProps {
 }
 
 interface IProps extends IStateToProps, IDispatchToProps {
-};
+}
 
 const className = style(
     {
-        height: 100,
+        "height": 100,
         "-webkit-backdrop-filter": "blur(30px)",
-        backdropFilter: "blur(30px)",
-        backgroundColor: "#ffffff",
-        background: "white",
-        border: "solid 1px #d8d8d8",
-        display: "flex",
-        flexDirection: "row",
-        alignItems: "center",
+        "backdropFilter": "blur(30px)",
+        "backgroundColor": "#ffffff",
+        "background": "white",
+        "border": "solid 1px #d8d8d8",
+        "display": "flex",
+        "flexDirection": "row",
+        "alignItems": "center",
         "$nest": {
             ".item1": {
                 flex: 11,
@@ -142,7 +142,7 @@ class Search extends React.Component<IProps> {
                     <Input {...values}/>
                 </div>
                 <div className={"item2"}>
-                    <select onClick={this.handleSort}>
+                    <select onChangeCapture={this.handleSort}>
                         <option value={"newest"}>Newest First</option>
                         <option value={"oldest"}>Oldest First</option>
                     </select>

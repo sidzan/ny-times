@@ -14,7 +14,6 @@ export interface IDoc {
     snippet: string;
     lead_paragraph: string;
     abstract: string;
-    blog: IBlog;
     source: Source;
     multimedia: IMultimedia[];
     headline: IHeadline;
@@ -36,9 +35,6 @@ export interface IDocRestrutrued extends IDoc {
     hasImage: boolean;
     thumbnail: string;
     image: string;
-}
-
-export interface IBlog {
 }
 
 export interface IByline {

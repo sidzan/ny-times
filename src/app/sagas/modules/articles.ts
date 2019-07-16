@@ -1,11 +1,11 @@
 import autobind from "autobind-decorator";
-import {call, CallEffect, ForkEffect, put, PutEffect, select, takeLatest, delay} from "redux-saga/effects";
+import {call, CallEffect, delay, ForkEffect, put, PutEffect, select, takeLatest} from "redux-saga/effects";
 import {getType} from "typesafe-actions";
 import {URLS} from "../../constants/URLS";
 import {getArticles} from "../../redux/modules/Articles/articlesActionCretors";
 import {Api} from "../../sdk/Api";
 import {IArticles, IResponse} from "../../sdk/Interface/Article";
-import {getSort, getSearchKey} from "../../selectors/ArticlesSelectors";
+import {getSearchKey, getSort} from "../../selectors/ArticlesSelectors";
 import {BaseSaga} from "../BaseSaga";
 
 const restructurePayload = (response: IResponse): IResponse => {
@@ -15,8 +15,8 @@ const restructurePayload = (response: IResponse): IResponse => {
             return doc;
         }
         doc.hasImage = true;
-        doc.thumbnail = URLS.image + doc.multimedia.filter(d => d.subType === "xlarge").map(d => d.url);
-        doc.image = URLS.image + doc.multimedia.filter(d => d.subType === "thumbLarge").map(d => d.url);
+        doc.thumbnail = URLS.image + doc.multimedia.filter((d) => d.subType === "xlarge").map((d) => d.url);
+        doc.image = URLS.image + doc.multimedia.filter((d) => d.subType === "thumbLarge").map((d) => d.url);
         return doc;
     });
     return response;
@@ -59,7 +59,7 @@ export class ArticlesSaga extends BaseSaga {
     }
 
     protected* registerListeners(): IterableIterator<ForkEffect> {
-        yield takeLatest(getType(getArticles.invoke), this.fetchArticles)
+        yield takeLatest(getType(getArticles.invoke), this.fetchArticles);
         yield takeLatest("ARTICLES/CLEAR_SEARCH", this.fetchArticles);
         yield takeLatest("ARTICLES/SEARCH", this.searchArticles);
         yield takeLatest("ARTICLES/SORT", this.searchArticles);

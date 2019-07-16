@@ -5,7 +5,7 @@ import {FontSize} from "../constants/FontSize";
 export function setupCss(language: string = "en"): void {
   const fontFamily = language === "th" ? "Questrial" : "Prompt";
   cssRaw(`
-  
+
   * {
     box-sizing: border-box;
   }

@@ -1,12 +1,12 @@
 import * as React from "react";
+import {style} from "typestyle";
 import {Articles} from "../containers/Articles";
 import {Search} from "../containers/Search";
-import {style} from "typestyle";
 
 const homePageStyle = style(
     {
-        width: "90%",
-        margin: "auto"
+        margin: "auto",
+        width: "90%"
     });
 
 class HomePage extends React.Component {

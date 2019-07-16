@@ -25,8 +25,8 @@ const className = style(
     {
         $nest: {
             ".date": {
-                "$nest": {
-                    div: {
+                $nest: {
+                    "div": {
                         textAlign: "center",
                         fontSize: 12,
                         padding: 1

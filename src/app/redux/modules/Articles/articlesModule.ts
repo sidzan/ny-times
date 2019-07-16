@@ -13,11 +13,11 @@ const initialState: IArticlesState = {
     data: {
         docs: []
     },
-    searchQuery: "",
-    sort: "newest",
     error: "",
     loaded: false,
-    pending: false
+    pending: false,
+    searchQuery: "",
+    sort: "newest"
 };
 
 export function articlesReducer(

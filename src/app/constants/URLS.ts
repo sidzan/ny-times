@@ -1,3 +1,3 @@
 export enum URLS {
-    image = "https://nytimes.com/",
+    image = "https://nytimes.com/"
 }

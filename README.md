@@ -2,7 +2,7 @@
 ## Directory Structure
 ```bash
 .
-├── build                       # Built, ready to serve app.
+├── build                       # Built, ready to serve app. ( hosted on firebase)
 ├── config                      # Root folder for configurations.
 │   ├── types                   # Global type definitions, written by us.
 │   ├── utils                   # Utils for config.
@@ -50,29 +50,45 @@
 You can clone from this repository and use master
 
 ```bash
-$ git clone https://github.com/sidzan/ts-react-boilerplate
-$ cd ts-react-boilerplate
+$ git clone https://github.com/sidzan/ny-times.git
+$ cd ny-times
 $ npm install
 ```
 
 ## Usage
 
-All commands defaults to development environment. You can set `NODE_ENV` to `production` or use the shortcuts below.
+All commands defaults to development environment with Server Side Rendering Enabled. You can set `NODE_ENV` to `production` or use the shortcuts below.
 
 ```bash
 # Running
 
 $ npm start # This starts the app in development mode
 
-# Starting it with the production build
-$ NODE_ENV=production npm start # or
-$ npm run start:prod
+# go to port 3300 of your machine
 
-# Building 
 
-$ npm build # This builds the app in development mode
 
-# Commands below builds the production build
-$ NODE_ENV=production npm build # or
-$ npm run build:prod
+# run using docker
+
+$ docker build -t nytimes .
+$ docker run -d --rm --env HOST=0.0.0.0 --name nytimes -p 3300:3300 nytimes
+
+# go to port 3300 of your machine
+
 ```
+
+
+## ADVANCED
+
+To Disable Server side- rendering, open `config/main.js` and `config/main.local.js`
+```bash
+# change     ssr: true,
+
+ssr: false # This starts the app without ssr 
+```
+
+
+# TODOS:
+- improve caching
+- create production ready
+- handle details page when loaded directly
